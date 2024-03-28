@@ -24,8 +24,8 @@ Follow these steps to get your development environment set up:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://your-repository-url.git
-   cd your-repository-directory
+   git clone https://github.com/20-8-21-1-14/Doc_OCR_Demo.git
+   cd 'your directory to folder just cloned'
    ```
 2.  **Create an Anaconda Environment**
     
