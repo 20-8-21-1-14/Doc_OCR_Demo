@@ -55,13 +55,12 @@ Follow these steps to get your development environment set up:
     
     Copy the `.env.example` file to a new file named `.env`, and fill in your Google Cloud project details and the path to your service account key.
     
-    plaintextCopy code
-    
-    `PROJECT_ID=your-project-id
+    ```plaintext
+    PROJECT_ID=your-project-id
     LOCATION=your-project-location
     PROCESSOR_ID=your-processor-id
     GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service/account/key.json` 
-    
+    ```
 
 ## Usage
 
