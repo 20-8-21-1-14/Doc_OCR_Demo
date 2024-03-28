@@ -42,12 +42,12 @@ Follow these steps to get your development environment set up:
     After activating your environment, install the required packages:
     
     ```bash
-    `pip install -r requirements.txt` 
+    pip install -r requirements.txt 
     ```
     Alternatively, if you prefer using conda for all installations and the packages are available in the Conda repositories, you can use:
     
     ```bash
-    `conda install --file requirements.txt` 
+    conda install --file requirements.txt 
     ```
     Note: Not all Python packages are available through conda, so you might still need to use pip for some.
     
