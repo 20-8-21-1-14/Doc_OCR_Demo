@@ -66,6 +66,6 @@ Follow these steps to get your development environment set up:
 
 To run the application, execute:
 
-bashCopy code
-
-`streamlit run app.py`
+```bash
+streamlit run app.py
+```

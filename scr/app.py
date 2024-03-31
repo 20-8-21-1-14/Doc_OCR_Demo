@@ -25,20 +25,35 @@ def process_document(file, project_id, location, processor_id, credentials_path)
     return result.document.text
 
 
+selected_processor = st.radio("Choose Processor:", ("Fee Processor", "Contact Info Processor"))
 
-st.title('Upload Document for Processing')
 
-uploaded_file = st.file_uploader("Choose a PDF file or an image", type=['pdf', 'jpg', 'png'])
-if uploaded_file is not None:
+if __name__=='__main__':
+    st.title('Upload Document for Processing')
+
+    uploaded_file = st.file_uploader("Choose a PDF file or an image", type=['pdf', 'jpg', 'png'])
+    
+    if uploaded_file is None:
+        st.error("Please upload a PDF file or an image.")
+    else:
+        # Get processor ID based on selection
+        if selected_processor == "Fee Processor":
+            processor_id = "your-fee-processor-id"  # Replace with actual ID
+        else:
+            processor_id = "your-cont-info-processor-id"  # Replace with actual ID
+
+    if uploaded_file is not None and selected_processor is not None:
     # Set your Google Cloud Project details
-    PROJECT_ID = 'your-project-id'
-    LOCATION = 'your-project-location'  # e.g., 'us' or 'eu'
-    PROCESSOR_ID = 'your-processor-id'  # Find this in your Document AI processor settings
-    CREDENTIALS_PATH = 'path/to/your/service/account/key.json'
+        PROJECT_ID = 'your-project-id'
+        LOCATION = 'us'
+        PROCESSOR_ID = processor_id
+        CREDENTIALS_PATH = 'scr/config/amazing-thought-405501-3fb66bba89ef.json'
 
-    # Process the uploaded file
-    text = process_document(uploaded_file, PROJECT_ID, LOCATION, PROCESSOR_ID, CREDENTIALS_PATH)
+        # Process the uploaded file
+        text = process_document(uploaded_file, PROJECT_ID, LOCATION, PROCESSOR_ID, CREDENTIALS_PATH)
 
-    # Display the extracted text
-    st.write('Extracted Text:')
-    st.write(text)
+         # Display the extracted text
+        st.write('Extracted Text:')
+        st.write(text)
+    assert text is None, 'No text extracted'
+    
