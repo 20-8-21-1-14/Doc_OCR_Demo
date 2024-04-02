@@ -2,6 +2,7 @@ import streamlit as st
 from google.cloud import documentai_v1 as documentai
 from google.oauth2 import service_account
 import io
+import json
 
 
 # Function to authenticate and process the document
@@ -29,31 +30,34 @@ selected_processor = st.radio("Choose Processor:", ("Fee Processor", "Contact In
 
 
 if __name__=='__main__':
+    # Corrected the path for the configuration file
+    with open('service/amazing-thought-405501-cf4272beee21.json', 'r') as config_file:  # Fixed the file extension
+        config = json.load(config_file)
+
+    PROJECT_ID = config['project_id']
+    LOCATION = "us"
+    CREDENTIALS_PATH =  'service/amazing-thought-405501-cf4272beee21.json'
+
     st.title('Upload Document for Processing')
 
     uploaded_file = st.file_uploader("Choose a PDF file or an image", type=['pdf', 'jpg', 'png'])
     
-    if uploaded_file is None:
-        st.error("Please upload a PDF file or an image.")
-    else:
+    if uploaded_file:
+        selected_processor = st.radio(
+            "Choose Processor:",
+            ("Fee Processor", "Contact Info Processor"),
+            key="processor_selector"  # Unique key for this widget
+        )
+
         # Get processor ID based on selection
         if selected_processor == "Fee Processor":
             processor_id = "your-fee-processor-id"  # Replace with actual ID
         else:
             processor_id = "your-cont-info-processor-id"  # Replace with actual ID
 
-    if uploaded_file is not None and selected_processor is not None:
-    # Set your Google Cloud Project details
-        PROJECT_ID = 'your-project-id'
-        LOCATION = 'us'
-        PROCESSOR_ID = processor_id
-        CREDENTIALS_PATH = 'scr/config/amazing-thought-405501-3fb66bba89ef.json'
+        text = process_document(uploaded_file, PROJECT_ID, LOCATION, processor_id, CREDENTIALS_PATH)
 
-        # Process the uploaded file
-        text = process_document(uploaded_file, PROJECT_ID, LOCATION, PROCESSOR_ID, CREDENTIALS_PATH)
-
-         # Display the extracted text
         st.write('Extracted Text:')
         st.write(text)
-    assert text is None, 'No text extracted'
-    
+    else:
+        st.error("Please upload a PDF file or an image.")
